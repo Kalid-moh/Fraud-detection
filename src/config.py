@@ -2,7 +2,7 @@
 import os
 
 # === ABSOLUTE PATHS BASED ON YOUR PROJECT LOCATION ===
-PROJECT_ROOT = r"C:\Users\Administrator\Desktop\10Academy\Week 5&6\Week5-6-fraud-detection"
+PROJECT_ROOT = r"C:\Users\h\Desktop\week 5\Fraud-detection"
 
 RAW_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "raw")
 PROCESSED_DATA_PATH = os.path.join(PROJECT_ROOT, "data", "processed")
