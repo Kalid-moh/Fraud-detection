@@ -1,139 +1,81 @@
 # Fraud Detection Project
 
-## Overview
+**Project Name**: Fraud Detection for E-commerce and Bank Transactions  
+**Company**: Adey Innovations Inc.  
+**Date**: December 20, 2025
 
-This repository contains a complete **Fraud Detection pipeline** for e-commerce and credit card datasets.  
-The project focuses on **Task 1: Data Analysis and Preprocessing**, preparing clean, feature-rich datasets ready for modeling.
+## Project Goals & Objectives
 
-The preprocessing pipeline includes:
+The goal of this project is to build accurate, interpretable machine learning models to detect fraudulent transactions in two datasets:
 
-- Data Cleaning
-- Exploratory Data Analysis (EDA)
-- Geolocation Integration
-- Feature Engineering
-- Data Transformation
-- Handling Class Imbalance
+- **E-commerce transactions** (`Fraud_Data.csv` + `IpAddress_to_Country.csv`)
+- **Credit card transactions** (`creditcard.csv`)
 
----
+### Key Objectives
 
-## Datasets
+- Handle severe class imbalance (fraud is rare)
+- Achieve high PR-AUC and F1-score while minimizing false positives (customer friction)
+- Provide interpretable insights using SHAP
+- Deliver actionable business recommendations to reduce fraud effectively
 
-The project uses the following datasets (place these in the `data/` folder):
+## Project Tasks
 
-1. **Fraud_Data.csv** – e-commerce transaction data
-2. **IpAddress_to_Country.csv** – mapping IP ranges to countries
-3. **creditcard.csv** – credit card transaction dataset
+1. **Task 1**: Data Analysis & Preprocessing
 
----
+   - Cleaning, EDA, geolocation mapping, feature engineering, scaling/encoding, SMOTE imbalance handling
 
-## Features Engineered
+2. **Task 2**: Model Building & Training
 
-### Time-Based Features
+   - Stratified split, Logistic Regression baseline, XGBoost ensemble, cross-validation, model comparison
 
-- `hour_of_day` – hour when the purchase occurred
-- `day_of_week` – day of the week
-- `time_since_signup_hours` – duration between signup and purchase
+3. **Task 3**: Model Explainability
+   - Built-in feature importance, SHAP summary & force plots, top fraud drivers, business recommendations
 
-### Transaction Frequency Features
+## Folder Structure
 
-- `user_transaction_count` – number of transactions per user
-- `device_transaction_count` – number of transactions per device
+fraud-detection/
+├── data/
+│ ├── raw/ # Original CSV files (not tracked in git)
+│ │ ├── Fraud_Data.csv
+│ │ ├── IpAddress_to_Country.csv
+│ │ └── creditcard.csv
+│ └── processed/ # Processed pickle files from Task 1
+├── src/
+│ ├── config.py # Centralized paths, constants, and helpers
+│ └── data_preprocessor.py # Full preprocessing pipeline (Task 1)
+├── notebooks/
+│ ├── eda-fraud-data.ipynb
+│ ├── eda-creditcard.ipynb
+│ ├── feature-engineering.ipynb
+│ ├── modeling.ipynb
+│ └── shap-explainability.ipynb
+├── models/ # Saved XGBoost models (.pkl)
+│ ├── xgb_ecommerce_best.pkl
+│ └── xgb_creditcard_best.pkl
+├── scripts/
+│ └── run_task1.py # Optional: run preprocessing pipeline
+├── requirements.txt
+└── README.md # This file
 
----
+## Setup Instructions
 
-## Preprocessing Steps
+### 1. Prerequisites
 
-1. **Data Cleaning**
+- Python 3.8+ (tested with 3.11/3.12)
+- Jupyter Notebook or JupyterLab
 
-   - Handle missing values (drop or impute with justification)
-   - Remove duplicate records
-   - Correct data types (`signup_time`, `purchase_time` → datetime)
-
-2. **Exploratory Data Analysis (EDA)**
-
-   - Univariate analysis of key variables
-   - Bivariate analysis (features vs target)
-   - Class distribution and imbalance visualization
-
-3. **Geolocation Integration**
-
-   - Convert IP addresses to integer format
-   - Merge `Fraud_Data.csv` with `IpAddress_to_Country.csv`
-   - Analyze fraud patterns by country
-
-4. **Feature Engineering**
-
-   - Time-based features
-   - Transaction frequency/velocity features
-
-5. **Data Transformation**
-
-   - Scale numerical features (`StandardScaler`)
-   - Encode categorical features (`OneHotEncoder`)
-
-6. **Handling Class Imbalance**
-   - Apply **SMOTE** on training data only
-   - Document class distribution before and after resampling
-
----
-
-## Project Structure
-
-Fraud-detection/
-│
-├─ data/ # Raw datasets
-├─ src/ # Source code
-│ ├─ data_preprocessor.py
-│ ├─ feature_engineering.py
-│ └─ config.py
-├─ notebooks/ # Jupyter notebooks for EDA and experiments
-├─ processed/ # Processed datasets (pickled features/targets)
-├─ requirements.txt
-└─ README.md
-
----
-
-## Installation
-
-1. Clone the repository:
+### 2. Install Dependencies
 
 ```bash
-git clone https://github.com/Kalid-moh/Fraud-detection.git
-cd Fraud-detection
+pip install -r requirements.txt
 ```
 
-2. Create and activate a virtual environment:
-
-python -m venv .venv
-
-# Windows
-
-.venv\Scripts\activate
-
-# macOS/Linux
-
-source .venv/bin/activate
-
-3. Install dependencies:
-
-pip install -r requirements.txt
-
-Usage
-
-Run the preprocessing pipeline:
-
-python src/data_preprocessor.py
-
-This will:
-
-Clean datasets
-
-Merge geolocation data
-
-Engineer features
-
-Scale and encode data
-
-Apply SMOTE for class imbalance
-
-Save processed datasets in the processed/ folder
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+imbalanced-learn
+shap
+joblib
